@@ -1,0 +1,1464 @@
+
+<!DOCTYPE html>
+
+<html lang="nl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="theme-color" content="#f5f5f2">
+
+<title>Mijn krachttraining</title>
+
+<style>
+
+:root {
+
+  --bg: #f5f5f2;
+
+  --card: #ffffff;
+
+  --text: #242824;
+
+  --muted: #777d76;
+
+  --accent: #567b65;
+
+  --accent-light: #e7eee8;
+
+  --border: #e5e8e2;
+
+  --danger: #b64d4d;
+
+}
+
+* { box-sizing: border-box; }
+
+body {
+
+  margin: 0;
+
+  background: var(--bg);
+
+  color: var(--text);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+}
+
+header {
+
+  padding: 25px 18px 18px;
+
+  text-align: center;
+
+}
+
+header h1 {
+
+  margin: 0;
+
+  font-size: 25px;
+
+  font-weight: 750;
+
+}
+
+header p {
+
+  margin: 7px 0 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+}
+
+main {
+
+  max-width: 720px;
+
+  margin: auto;
+
+  padding: 0 14px 45px;
+
+}
+
+.weekbar {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 15px;
+
+  padding: 12px;
+
+  margin-bottom: 14px;
+
+}
+
+.weekbar button, .action-button {
+
+  border: 0;
+
+  background: var(--accent-light);
+
+  color: var(--accent);
+
+  border-radius: 10px;
+
+  padding: 10px 14px;
+
+  font-size: 15px;
+
+  font-weight: 650;
+
+  cursor: pointer;
+
+}
+
+.weekbar button:disabled {
+
+  opacity: .35;
+
+  cursor: default;
+
+}
+
+.week-label {
+
+  text-align: center;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+}
+
+.tabs {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 9px;
+
+  margin-bottom: 14px;
+
+}
+
+.tab {
+
+  border: 1px solid var(--border);
+
+  background: white;
+
+  color: var(--muted);
+
+  border-radius: 12px;
+
+  padding: 13px;
+
+  font-weight: 700;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+}
+
+.tab.active {
+
+  background: var(--accent);
+
+  color: white;
+
+  border-color: var(--accent);
+
+}
+
+.progress-card {
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 14px;
+
+  padding: 14px;
+
+  margin-bottom: 14px;
+
+}
+
+.progress-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 13px;
+
+  color: var(--muted);
+
+  margin-bottom: 9px;
+
+}
+
+.progress-track {
+
+  height: 8px;
+
+  border-radius: 20px;
+
+  background: #edf0eb;
+
+  overflow: hidden;
+
+}
+
+.progress-fill {
+
+  height: 100%;
+
+  width: 0;
+
+  background: var(--accent);
+
+  transition: width .2s;
+
+}
+
+.exercise-card {
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: 16px;
+
+  margin-bottom: 13px;
+
+  overflow: hidden;
+
+}
+
+.exercise-heading {
+
+  padding: 15px 15px 10px;
+
+}
+
+.exercise-title-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 8px;
+
+}
+
+.exercise-title {
+
+  font-size: 17px;
+
+  font-weight: 750;
+
+  margin: 0;
+
+}
+
+.muscles {
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  margin-top: 5px;
+
+}
+
+.done-label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 12px;
+
+  color: var(--muted);
+
+  white-space: nowrap;
+
+}
+
+.done-label input {
+
+  accent-color: var(--accent);
+
+  width: 18px;
+
+  height: 18px;
+
+}
+
+.exercise-image {
+
+  width: 100%;
+
+  height: 190px;
+
+  object-fit: contain;
+
+  background: #f7f8f5;
+
+  display: block;
+
+}
+
+.image-placeholder {
+
+  height: 130px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: #f7f8f5;
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+}
+
+.exercise-info {
+
+  padding: 10px 15px;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+
+  color: #626960;
+
+}
+
+.best-line {
+
+  color: var(--accent);
+
+  font-size: 12px;
+
+  font-weight: 650;
+
+  padding: 0 15px 10px;
+
+}
+
+.sets {
+
+  padding: 0 15px 13px;
+
+}
+
+.set-header, .set-row {
+
+  display: grid;
+
+  grid-template-columns: 42px 1fr 1fr;
+
+  gap: 8px;
+
+  align-items: center;
+
+}
+
+.set-header {
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  padding: 0 0 7px;
+
+}
+
+.set-row { margin-bottom: 7px; }
+
+.set-number {
+
+  font-size: 13px;
+
+  color: var(--muted);
+
+}
+
+.set-row input {
+
+  width: 100%;
+
+  min-width: 0;
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+
+  background: #fbfcfa;
+
+  padding: 10px 8px;
+
+  font-size: 14px;
+
+  color: var(--text);
+
+}
+
+.previous {
+
+  padding: 0 15px 12px;
+
+  font-size: 12px;
+
+  color: var(--muted);
+
+}
+
+.notes {
+
+  padding: 0 15px 15px;
+
+}
+
+.notes textarea {
+
+  width: 100%;
+
+  min-height: 58px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  padding: 10px;
+
+  font: inherit;
+
+  font-size: 13px;
+
+  resize: vertical;
+
+}
+
+.actions {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 9px;
+
+  margin-top: 16px;
+
+}
+
+.actions button {
+
+  border: 0;
+
+  border-radius: 11px;
+
+  padding: 13px 9px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+}
+
+.complete-button {
+
+  background: var(--accent);
+
+  color: white;
+
+}
+
+.clear-button {
+
+  background: #f5e9e7;
+
+  color: var(--danger);
+
+}
+
+@media (max-width: 420px) {
+
+  .exercise-image { height: 160px; }
+
+  .weekbar button { padding: 9px 10px; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>Mijn krachttraining</h1>
+
+  <p>Stap voor stap sterker worden 💪</p>
+
+</header>
+
+<main>
+
+  <div class="weekbar">
+
+    <button id="prevWeek">← Vorige</button>
+
+    <div class="week-label" id="weekLabel"></div>
+
+    <button id="nextWeek">Volgende →</button>
+
+  </div>
+
+  <div class="tabs">
+
+    <button class="tab active" data-workout="A">Training A</button>
+
+    <button class="tab" data-workout="B">Training B</button>
+
+  </div>
+
+  <div class="progress-card">
+
+    <div class="progress-top">
+
+      <span>Voortgang training</span>
+
+      <strong id="progressText">0 / 8 oefeningen</strong>
+
+    </div>
+
+    <div class="progress-track">
+
+      <div class="progress-fill" id="progressFill"></div>
+
+    </div>
+
+  </div>
+
+  <div id="exerciseList"></div>
+
+  <div class="actions">
+
+    <button class="complete-button" id="completeTraining">
+
+      Training voltooien ✓
+
+    </button>
+
+    <button class="clear-button" id="clearTraining">
+
+      Training wissen
+
+    </button>
+
+  </div>
+
+</main>
+
+<script>
+
+const STORAGE = "krachtschema_v2";
+
+const workouts = {
+
+  A: [
+
+    {
+
+      name: "Leg press",
+
+      muscles: "Bovenbenen en bilspieren",
+
+      info: "Plaats je voeten op schouderbreedte. Laat het gewicht gecontroleerd zakken en duw weer omhoog zonder je knieën volledig op slot te zetten.",
+
+      search: "Leg Press"
+
+    },
+
+    {
+
+      name: "Lat pulldown",
+
+      muscles: "Rug en biceps",
+
+      info: "Trek de stang naar je bovenborst. Houd je borst omhoog en beweeg gecontroleerd.",
+
+      search: "Lat Pulldown"
+
+    },
+
+    {
+
+      name: "Dumbbell squat",
+
+      muscles: "Bovenbenen en bilspieren",
+
+      info: "Houd de dumbbells naast je lichaam. Zak door je knieën en heupen en duw jezelf weer omhoog.",
+
+      search: "Dumbbell Squat"
+
+    },
+
+    {
+
+      name: "Chest press",
+
+      muscles: "Borst, schouders en triceps",
+
+      info: "Duw de handgrepen naar voren. Laat ze rustig terugkomen en houd je schouders laag.",
+
+      search: "Chest Press"
+
+    },
+
+    {
+
+      name: "Romanian deadlift",
+
+      muscles: "Hamstrings en bilspieren",
+
+      info: "Duw je heupen naar achteren met een lichte buiging in je knieën. Houd je rug neutraal en kom gecontroleerd recht.",
+
+      search: "Romanian Deadlift"
+
+    },
+
+    {
+
+      name: "Triceps pushdown",
+
+      muscles: "Triceps",
+
+      info: "Houd je ellebogen tegen je lichaam en duw de kabel naar beneden.",
+
+      search: "Triceps Pushdown"
+
+    },
+
+    {
+
+      name: "Overhead triceps extension",
+
+      muscles: "Triceps",
+
+      info: "Breng je handen boven of achter je hoofd en strek je armen gecontroleerd.",
+
+      search: "Overhead Triceps Extension"
+
+    },
+
+    {
+
+      name: "Plank",
+
+      muscles: "Buikspieren en core",
+
+      info: "Steun op je onderarmen en tenen. Houd je lichaam in een rechte lijn en span je buik aan.",
+
+      search: "Plank"
+
+    }
+
+  ],
+
+  B: [
+
+    {
+
+      name: "Hip thrust",
+
+      muscles: "Bilspieren",
+
+      info: "Plaats je bovenrug tegen een bank. Duw je heupen omhoog en span je bilspieren bovenaan aan.",
+
+      search: "Barbell Hip Thrust"
+
+    },
+
+    {
+
+      name: "Seated cable row",
+
+      muscles: "Rug en biceps",
+
+      info: "Trek de handgreep naar je buik. Houd je rug recht en knijp je schouderbladen samen.",
+
+      search: "Seated Cable Row"
+
+    },
+
+    {
+
+      name: "Walking lunges",
+
+      muscles: "Bovenbenen en bilspieren",
+
+      info: "Zet een grote stap naar voren en zak gecontroleerd door beide knieën. Wissel van been.",
+
+      search: "Walking Lunge"
+
+    },
+
+    {
+
+      name: "Incline chest press",
+
+      muscles: "Bovenborst, schouders en triceps",
+
+      info: "Duw de gewichten schuin omhoog. Laat ze rustig zakken tot naast je borst.",
+
+      search: "Incline Chest Press"
+
+    },
+
+    {
+
+      name: "Leg curl",
+
+      muscles: "Hamstrings",
+
+      info: "Buig je knieën en trek je hielen richting je billen. Laat het gewicht langzaam teruggaan.",
+
+      search: "Lying Leg Curl"
+
+    },
+
+    {
+
+      name: "Shoulder press",
+
+      muscles: "Schouders en triceps",
+
+      info: "Duw de gewichten boven je hoofd. Houd je buik aangespannen en je rug stabiel.",
+
+      search: "Dumbbell Shoulder Press"
+
+    },
+
+    {
+
+      name: "Triceps pushdown",
+
+      muscles: "Triceps",
+
+      info: "Houd je ellebogen tegen je lichaam en duw de kabel naar beneden.",
+
+      search: "Triceps Pushdown"
+
+    },
+
+    {
+
+      name: "Cable crunch",
+
+      muscles: "Buikspieren",
+
+      info: "Buig je bovenlichaam richting je heupen en span je buikspieren aan. Trek niet met je armen.",
+
+      search: "Cable Crunch"
+
+    }
+
+  ]
+
+};
+
+let data = JSON.parse(localStorage.getItem(STORAGE) || "{}");
+
+let currentWorkout = "A";
+
+let currentWeek = getMonday(new Date());
+
+let exerciseDatabase = [];
+
+function saveData() {
+
+  localStorage.setItem(STORAGE, JSON.stringify(data));
+
+}
+
+function dateKey(date) {
+
+  return date.toISOString().slice(0, 10);
+
+}
+
+function getMonday(date) {
+
+  const d = new Date(date);
+
+  d.setHours(0, 0, 0, 0);
+
+  const day = (d.getDay() + 6) % 7;
+
+  d.setDate(d.getDate() - day);
+
+  return d;
+
+}
+
+function addDays(date, days) {
+
+  const d = new Date(date);
+
+  d.setDate(d.getDate() + days);
+
+  return d;
+
+}
+
+function weekKey() {
+
+  return dateKey(currentWeek);
+
+}
+
+function weekData() {
+
+  const key = weekKey();
+
+  if (!data[key]) data[key] = {};
+
+  if (!data[key][currentWorkout]) {
+
+    data[key][currentWorkout] = {};
+
+  }
+
+  return data[key][currentWorkout];
+
+}
+
+function getExerciseData(index) {
+
+  const exercises = weekData();
+
+  if (!exercises[index]) {
+
+    exercises[index] = {
+
+      sets: [
+
+        { weight: "", reps: "" },
+
+        { weight: "", reps: "" },
+
+        { weight: "", reps: "" }
+
+      ],
+
+      notes: "",
+
+      done: false
+
+    };
+
+  }
+
+  return exercises[index];
+
+}
+
+function previousWeekData(index) {
+
+  const previousMonday = addDays(currentWeek, -7);
+
+  const key = dateKey(previousMonday);
+
+  return data[key]?.[currentWorkout]?.[index] || null;
+
+}
+
+function bestWeight(index) {
+
+  let best = 0;
+
+  Object.values(data).forEach(week => {
+
+    const exercise = week?.[currentWorkout]?.[index];
+
+    if (!exercise || !exercise.sets) return;
+
+    exercise.sets.forEach(set => {
+
+      const weight = parseFloat(
+
+        String(set.weight).replace(",", ".")
+
+      );
+
+      if (!isNaN(weight) && weight > best) {
+
+        best = weight;
+
+      }
+
+    });
+
+  });
+
+  return best;
+
+}
+
+function escapeHtml(value) {
+
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+
+    "&": "&amp;",
+
+    "<": "&lt;",
+
+    ">": "&gt;",
+
+    '"': "&quot;",
+
+    "'": "&#039;"
+
+  })[char]);
+
+}
+
+function updateWeekLabel() {
+
+  const end = addDays(currentWeek, 6);
+
+  const options = {
+
+    day: "numeric",
+
+    month: "short"
+
+  };
+
+  document.getElementById("weekLabel").textContent =
+
+    currentWeek.toLocaleDateString("nl-BE", options) +
+
+    " – " +
+
+    end.toLocaleDateString("nl-BE", options);
+
+  const thisMonday = getMonday(new Date());
+
+  document.getElementById("nextWeek").disabled =
+
+    currentWeek >= thisMonday;
+
+}
+
+function updateProgress() {
+
+  const exercises = weekData();
+
+  const total = workouts[currentWorkout].length;
+
+  const completed = workouts[currentWorkout].filter(
+
+    (_, index) => exercises[index]?.done
+
+  ).length;
+
+  document.getElementById("progressText").textContent =
+
+    `${completed} / ${total} oefeningen`;
+
+  document.getElementById("progressFill").style.width =
+
+    `${(completed / total) * 100}%`;
+
+}
+
+function updateBestLabels() {
+
+  workouts[currentWorkout].forEach((exercise, index) => {
+
+    const element = document.getElementById(`best-${index}`);
+
+    if (element) {
+
+      const best = bestWeight(index);
+
+      element.textContent = best > 0
+
+        ? `Beste geregistreerde gewicht: ${best} kg`
+
+        : "Nog geen beste gewicht geregistreerd";
+
+    }
+
+  });
+
+}
+
+function render() {
+
+  updateWeekLabel();
+
+  document.querySelectorAll(".tab").forEach(button => {
+
+    button.classList.toggle(
+
+      "active",
+
+      button.dataset.workout === currentWorkout
+
+    );
+
+  });
+
+  const list = document.getElementById("exerciseList");
+
+  list.innerHTML = "";
+
+  workouts[currentWorkout].forEach((exercise, index) => {
+
+    const saved = getExerciseData(index);
+
+    const previous = previousWeekData(index);
+
+    const best = bestWeight(index);
+
+    const card = document.createElement("section");
+
+    card.className = "exercise-card";
+
+    const imageHtml = getExerciseImage(exercise);
+
+    const previousText = previous?.sets
+
+      ? previous.sets.map((set, i) =>
+
+          `Set ${i + 1}: ${set.weight || "–"} kg × ${set.reps || "–"}`
+
+        ).join(" | ")
+
+      : "Nog geen gegevens van vorige week.";
+
+    card.innerHTML = `
+
+      <div class="exercise-heading">
+
+        <div class="exercise-title-row">
+
+          <div>
+
+            <h2 class="exercise-title">${escapeHtml(exercise.name)}</h2>
+
+            <div class="muscles">${escapeHtml(exercise.muscles)}</div>
+
+          </div>
+
+          <label class="done-label">
+
+            <input type="checkbox"
+
+              class="done-check"
+
+              ${saved.done ? "checked" : ""}
+
+              aria-label="Oefening voltooid">
+
+            Klaar
+
+          </label>
+
+        </div>
+
+      </div>
+
+      ${imageHtml}
+
+      <div class="exercise-info">
+
+        ${escapeHtml(exercise.info)}
+
+      </div>
+
+      <div class="best-line" id="best-${index}">
+
+        ${best > 0
+
+          ? `Beste geregistreerde gewicht: ${best} kg`
+
+          : "Nog geen beste gewicht geregistreerd"}
+
+      </div>
+
+      <div class="sets">
+
+        <div class="set-header">
+
+          <span>Set</span>
+
+          <span>Gewicht (kg)</span>
+
+          <span>Herhalingen / sec.</span>
+
+        </div>
+
+        ${saved.sets.map((set, setIndex) => `
+
+          <div class="set-row">
+
+            <span class="set-number">${setIndex + 1}</span>
+
+            <input type="number" min="0" step="0.5"
+
+              class="weight-input"
+
+              data-set="${setIndex}"
+
+              value="${escapeHtml(set.weight)}"
+
+              placeholder="kg">
+
+            <input type="number" min="0" step="1"
+
+              class="reps-input"
+
+              data-set="${setIndex}"
+
+              value="${escapeHtml(set.reps)}"
+
+              placeholder="Aantal">
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+      <div class="previous">
+
+        Vorige week: ${escapeHtml(previousText)}
+
+      </div>
+
+      <div class="notes">
+
+        <textarea class="notes-input"
+
+          placeholder="Notities bij deze oefening...">${escapeHtml(saved.notes)}</textarea>
+
+      </div>
+
+    `;
+
+    card.querySelector(".done-check").addEventListener("change", event => {
+
+      saved.done = event.target.checked;
+
+      saveData();
+
+      updateProgress();
+
+    });
+
+    card.querySelectorAll(".weight-input").forEach(input => {
+
+      input.addEventListener("input", event => {
+
+        saved.sets[Number(event.target.dataset.set)].weight =
+
+          event.target.value;
+
+        saveData();
+
+        updateBestLabels();
+
+      });
+
+    });
+
+    card.querySelectorAll(".reps-input").forEach(input => {
+
+      input.addEventListener("input", event => {
+
+        saved.sets[Number(event.target.dataset.set)].reps =
+
+          event.target.value;
+
+        saveData();
+
+      });
+
+    });
+
+    card.querySelector(".notes-input").addEventListener("input", event => {
+
+      saved.notes = event.target.value;
+
+      saveData();
+
+    });
+
+    list.appendChild(card);
+
+  });
+
+  updateProgress();
+
+}
+
+function normalizeName(name) {
+
+  return name.toLowerCase()
+
+    .replace(/[^a-z0-9]/g, "");
+
+}
+
+function getExerciseImage(exercise) {
+
+  if (!exerciseDatabase.length) {
+
+    return `
+
+      <div class="image-placeholder">
+
+        Afbeelding wordt geladen...
+
+      </div>
+
+    `;
+
+  }
+
+  const searchName = normalizeName(exercise.search);
+
+  let match = exerciseDatabase.find(item =>
+
+    normalizeName(item.name) === searchName
+
+  );
+
+  if (!match) {
+
+    match = exerciseDatabase.find(item =>
+
+      normalizeName(item.name).includes(searchName) ||
+
+      searchName.includes(normalizeName(item.name))
+
+    );
+
+  }
+
+  if (!match || !match.images || !match.images.length) {
+
+    return `
+
+      <div class="image-placeholder">
+
+        Geen afbeelding beschikbaar
+
+      </div>
+
+    `;
+
+  }
+
+  const imageUrl =
+
+    "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/" +
+
+    match.images[0];
+
+  return `
+
+    <img
+
+      class="exercise-image"
+
+      src="${escapeHtml(imageUrl)}"
+
+      alt="${escapeHtml(exercise.name)}"
+
+      loading="lazy"
+
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+
+    >
+
+    <div class="image-placeholder" style="display:none">
+
+      Afbeelding niet beschikbaar
+
+    </div>
+
+  `;
+
+}
+
+async function loadExerciseDatabase() {
+
+  try {
+
+    const response = await fetch(
+
+      "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json"
+
+    );
+
+    if (!response.ok) {
+
+      throw new Error("Database niet bereikbaar");
+
+    }
+
+    exerciseDatabase = await response.json();
+
+    render();
+
+  } catch (error) {
+
+    console.error("Afbeeldingen konden niet geladen worden:", error);
+
+    exerciseDatabase = [];
+
+    render();
+
+  }
+
+}
+
+// Training A en B wisselen
+
+document.querySelectorAll(".tab").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    currentWorkout = button.dataset.workout;
+
+    render();
+
+  });
+
+});
+
+// Vorige week
+
+document.getElementById("prevWeek").addEventListener("click", () => {
+
+  currentWeek = addDays(currentWeek, -7);
+
+  render();
+
+});
+
+// Volgende week
+
+document.getElementById("nextWeek").addEventListener("click", () => {
+
+  const next = addDays(currentWeek, 7);
+
+  const thisMonday = getMonday(new Date());
+
+  if (next <= thisMonday) {
+
+    currentWeek = next;
+
+    render();
+
+  }
+
+});
+
+// Alle oefeningen als voltooid markeren
+
+document.getElementById("completeTraining").addEventListener("click", () => {
+
+  workouts[currentWorkout].forEach((exercise, index) => {
+
+    getExerciseData(index).done = true;
+
+  });
+
+  saveData();
+
+  render();
+
+});
+
+// Huidige training wissen
+
+document.getElementById("clearTraining").addEventListener("click", () => {
+
+  const confirmed = confirm(
+
+    "Wil je alle gegevens van deze training in deze week wissen?"
+
+  );
+
+  if (!confirmed) return;
+
+  const key = weekKey();
+
+  if (data[key]) {
+
+    delete data[key][currentWorkout];
+
+    if (Object.keys(data[key]).length === 0) {
+
+      delete data[key];
+
+    }
+
+  }
+
+  saveData();
+
+  render();
+
+});
+
+// App starten
+
+render();
+
+loadExerciseDatabase();
+
+</script>
+
+</body>
+
+</html>
